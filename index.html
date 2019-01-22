@@ -25,28 +25,44 @@
                     <tr>
                         <td>Thickness Factor</td>
                         <td colspan=7>
-                            <input type="number" class="form-control" placeholder="0" id="thicknessFactor">
+                            <input type="number" class="form-control" placeholder="0" step="any" id="thicknessFactor">
                         </td>
                     </tr>
                     <tr>
-                        <td>Size</td>
+                        <td>Shape</td>
                         <td colspan=7>
-                            <input type="number" class="form-control" placeholder="0" id="diameter">
+                            <div class="form-group">
+                                <select id="shape" class="form-control">
+                                    <option selected>Round</option>
+                                    <option>Rectangular</option>
+                                </select>
+                            </div>
+                            <div class="form-row" id="rectangular-row">
+                                <div class="form-group col-md-6">
+                                    <label for="width">Width</label>
+                                    <input type="number" step="any" class="form-control" placeholder="0" id="width">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="length">Length</label>
+                                    <input type="number" step="any" class="form-control" placeholder="0" id="length">
+                                </div>
+                            </div>
+                            <div class="form-group" id="diameter-row">
+                                <label for="diameter">Diamater</label>
+                                <input type="number" class="form-control" placeholder="0" step="any" id="diameter">
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td>Quantity</td>
                         <td colspan=7>
-                            <input type="number" class="form-control" placeholder="0" id="quantity">
+                            <input type="number" class="form-control" placeholder="0" step="any" id="quantity">
                         </td>
                     </tr>
                     <tr>
                         <th>&nbsp;</th>
                         <th class="col-xs-12">&nbsp;</th>
                         <th>grams</th>
-                        <th>oz</th>
-                        <th>lbs</th>
-                        <th>cups</th>
                         <th>tsp</th>
                         <th>tbsp</th>
                     </tr>
@@ -56,15 +72,12 @@
                         <td id="flour-gram"></td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td>Water</td>
                         <td>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" id="water">
+                                <input type="number" class="form-control" placeholder="0" step="any" id="water">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -73,15 +86,12 @@
                         <td id="water-gram"></td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td>Yeast</td>
                         <td>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" id="yeast">
+                                <input type="number" class="form-control" placeholder="0" step="any" id="yeast">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -90,15 +100,12 @@
                         <td id="yeast-gram"></td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td>Salt</td>
                         <td>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" id="salt">
+                                <input type="number" class="form-control" placeholder="0" step="any" id="salt">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -107,15 +114,12 @@
                         <td id="salt-gram"></td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td>Oil</td>
                         <td>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" id="oil">
+                                <input type="number" class="form-control" placeholder="0" step="any" id="oil">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -124,24 +128,18 @@
                         <td id="oil-gram"></td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td>Sugar</td>
                         <td>
                             <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" id="sugar">
+                                <input type="number" class="form-control" placeholder="0" step="any" id="sugar">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
                         </td>
                         <td id="sugar-gram"></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
@@ -164,15 +162,18 @@
         </div>
         <div class="row mt-3">
             <div class="card">
-                <div class="card-body" id="url">
-                    &nbsp;
-                </div>
             </div>
         </div>
         <div class="row mt-3">
             <div class="card">
+                <div class="card-header">
+                    Sharing Options
+                </div>
                 <div class="card-body">
-                    Based on the <a href="https://www.pizzamaking.com/dough-calculator.html">Lehmann Pizza Dough Calculator</a>.
+                    <h5 class="card-title">URL</h5>
+                    <p class="card-text" id="url"></p>
+                    <h5 class="card-title">Table</h5>
+                    <p class="card-text" id="table"></p>
                 </div>
             </div>
         </div>
@@ -199,44 +200,111 @@
         }, false);
     </script>
     <script>
+        let tf = document.getElementById("thicknessFactor");
+        let quantity = document.getElementById("quantity");
+        let shape = document.getElementById("shape");
+        let diameter = document.getElementById("diameter");
+        let length = document.getElementById("length");
+        let width = document.getElementById("width");
+        let water = document.getElementById("water");
+        let yeast = document.getElementById("yeast");
+        let salt = document.getElementById("salt");
+        let oil = document.getElementById("oil");
+        let sugar = document.getElementById("sugar");
+
+        let rectangular_row = document.getElementById("rectangular-row");
+        let diameter_row = document.getElementById("diameter-row");
+
         document.addEventListener('input', calc);
         function calc() {
-            tf = Number(document.getElementById("thicknessFactor").value);
-            quantity = Number(document.getElementById("quantity").value);
-            diameter = Number(document.getElementById("diameter").value);
-            water = Number(document.getElementById("water").value);
-            yeast = Number(document.getElementById("yeast").value);
-            salt = Number(document.getElementById("salt").value);
-            oil = Number(document.getElementById("oil").value);
-            sugar = Number(document.getElementById("sugar").value);
-            total = (Math.PI * Math.pow(diameter / 2, 2)) * tf * quantity * 28.35;
-            flour = total / (1 + ((water + yeast + salt + oil + sugar) / 100));
+            var total;
+            switch(shape.value.toString()) {
+              case "Round":
+                total = (Math.PI * Math.pow(Number(diameter.value) / 2, 2)) * Number(tf.value) * Number(quantity.value) * 28.35;
+                rectangular_row.style.display = "none";
+                diameter_row.style.display = null;
+                break;
+              case "Rectangular":
+                total = (Number(width.value) * Number(length.value)) * Number(tf.value) * Number(quantity.value) * 28.35;
+                rectangular_row.style.display = null;
+                diameter_row.style.display = "none";
+                break;
+              default:
+                total = 0;
+            }
+            var flour = total / (1 + ((Number(water.value) + Number(yeast.value) + Number(salt.value) + Number(oil.value) + Number(sugar.value)) / 100));
+            var total_gram = total;
+            var perball_gram = total / Number(quantity.value);
+            var flour_gram = flour;
+            var water_gram = flour * (Number(water.value) / 100);
+            var yeast_gram = flour * (Number(yeast.value) / 100);
+            var salt_gram = flour * (Number(salt.value) / 100);
+            var oil_gram = flour * (Number(oil.value) / 100);
+            var sugar_gram = flour * (Number(sugar.value) / 100);
 
-            document.getElementById("total-gram").innerHTML = (total).toFixed(2);
-            document.getElementById("perball-gram").innerHTML = (total / quantity).toFixed(2);
-            document.getElementById("flour-gram").innerHTML = (flour).toFixed(2);
-            document.getElementById("water-gram").innerHTML = (flour * (water / 100)).toFixed(2);
-            document.getElementById("yeast-gram").innerHTML = (flour * (yeast / 100)).toFixed(2);
-            document.getElementById("salt-gram").innerHTML = (flour * (salt / 100)).toFixed(2);
-            document.getElementById("oil-gram").innerHTML = (flour * (oil / 100)).toFixed(2);
-            document.getElementById("sugar-gram").innerHTML = (flour * (sugar / 100)).toFixed(2);
-
-            hostAddress = top.location.host.toString();
-            pathName = top.location.pathname.toString();
-            url = "https://" + hostAddress + pathName;
-            url += "?thicknessFactor=" + tf;
-            url += "&diameter=" + diameter;
-            url += "&quantity=" + quantity;
-            url += "&water=" + water;
-            url += "&yeast=" + yeast;
-            url += "&salt=" + salt;
-            url += "&sugar=" + sugar;
-            url += "&oil=" + oil;
+            //Make the shareable URL
+            url = top.location.origin.toString() + top.location.host.toString() + top.location.pathname.toString();
+            url += "?thicknessFactor=" + Number(tf.value);
+            url += "&quantity=" + Number(quantity.value);
+            url += "&water=" + Number(water.value);
+            url += "&yeast=" + Number(yeast.value);
+            url += "&salt=" + Number(salt.value);
+            url += "&sugar=" + Number(sugar.value);
+            url += "&oil=" + Number(oil.value);
+            url += "&shape=" + shape.value;
+            switch(shape.value.toString()) {
+                case "Round":
+                    url += "&diameter=" + Number(diameter.value)
+                    break;
+                case "Rectangular":
+                    url += "&length=" + Number(length.value);
+                    url += "&width=" + Number(width.value);
+                    break;
+                default:
+                    break;
+            }
             document.getElementById("url").innerHTML = "<a href='" + url + "'>" + url + "</a>";
-        }
 
-        function _setNumber(field, value) {
-            document.getElementById(field).innerHTML = value.toFixed(2);
+            //Make a shareable table
+            document.getElementById("table").innerHTML = `
+                <table>
+                    <tr>
+                        <td>Flour</td>
+                        <td>${flour_gram.toFixed(2)}g</td>
+                    </tr>
+                    <tr>
+                        <td>Water (${Number(water.value)}%)</td>
+                        <td>${water_gram.toFixed(2)}g</td>
+                    </tr>
+                    <tr>
+                        <td>Yeast (${Number(yeast.value)}%)</td>
+                        <td>${yeast_gram.toFixed(2)}g</td>
+                    </tr>
+                    <tr>
+                        <td>Salt (${Number(salt.value)}%)</td>
+                        <td>${salt_gram.toFixed(2)}g</td>
+                    </tr>
+                    <tr>
+                        <td>Oil (${Number(oil.value)}%)</td>
+                        <td>${oil_gram.toFixed(2)}g</td>
+                    </tr>
+                    <tr>
+                        <td>Sugar (${Number(sugar.value)}%)</td>
+                        <td>${sugar_gram.toFixed(2)}g</td>
+                    </tr>
+                </table>
+
+            `;
+
+            //Update the main table
+            document.getElementById("total-gram").innerHTML = total_gram.toFixed(2);
+            document.getElementById("perball-gram").innerHTML = perball_gram.toFixed(2);
+            document.getElementById("flour-gram").innerHTML = flour_gram.toFixed(2);
+            document.getElementById("water-gram").innerHTML = water_gram.toFixed(2);
+            document.getElementById("yeast-gram").innerHTML = yeast_gram.toFixed(2);
+            document.getElementById("salt-gram").innerHTML = salt_gram.toFixed(2);
+            document.getElementById("oil-gram").innerHTML = oil_gram.toFixed(2);
+            document.getElementById("sugar-gram").innerHTML = sugar_gram.toFixed(2);
         }
 
         document.addEventListener("DOMContentLoaded", function(e) {
@@ -244,14 +312,17 @@
             var query_string = url.search;
             var search_params = new URLSearchParams(query_string);
 
-            document.getElementById("thicknessFactor").value = (search_params.get('thicknessFactor') == null) ? 0.075 : search_params.get('thicknessFactor');
-            document.getElementById("diameter").value = (search_params.get('diameter') == null) ? 11 : search_params.get('diameter');
-            document.getElementById("quantity").value = (search_params.get('quantity') == null) ? 2 : search_params.get('quantity');
-            document.getElementById("water").value = (search_params.get('water') == null) ? 65 : search_params.get('water');
-            document.getElementById("yeast").value = (search_params.get('yeast') == null) ? 0.5 : search_params.get('yeast');
-            document.getElementById("salt").value = (search_params.get('salt') == null) ? 2.5 : search_params.get('salt');
-            document.getElementById("sugar").value = (search_params.get('sugar') == null) ? 0.0 : search_params.get('sugar');
-            document.getElementById("oil").value = (search_params.get('oil') == null) ? 0.0 : search_params.get('oil');
+            thicknessFactor.value = (search_params.get('thicknessFactor') == null) ? 0.075 : search_params.get('thicknessFactor');
+            diameter.value = (search_params.get('diameter') == null) ? 11 : search_params.get('diameter');
+            shape.value = (search_params.get('shape') == null) ? "Round" : search_params.get('shape');
+            length.value = (search_params.get('length') == null) ? 11 : search_params.get('length');
+            width.value = (search_params.get('diameter') == null) ? 11 : search_params.get('diameter');
+            quantity.value = (search_params.get('quantity') == null) ? 2 : search_params.get('quantity');
+            water.value = (search_params.get('water') == null) ? 65 : search_params.get('water');
+            yeast.value = (search_params.get('yeast') == null) ? 0.5 : search_params.get('yeast');
+            salt.value = (search_params.get('salt') == null) ? 2.5 : search_params.get('salt');
+            sugar.value = (search_params.get('sugar') == null) ? 0.0 : search_params.get('sugar');
+            oil.value = (search_params.get('oil') == null) ? 0.0 : search_params.get('oil');
             calc();
         });
     </script>
