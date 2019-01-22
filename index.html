@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Pizza Dough Calculator</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">Pizza Dough Calculator</span>
+        <form class="form-inline">
+            <button class="btn btn-sm btn-outline-secondary" type="button" id="toggle">Wake Lock is disabled</button>
+        </form>
+    </nav>
+    <div class="container">
+        <div class="row mt-3">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-sm">
+                    <tr>
+                        <td>Thickness Factor</td>
+                        <td colspan=7>
+                            <input type="number" class="form-control" placeholder="0" id="thicknessFactor">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Size</td>
+                        <td colspan=7>
+                            <input type="number" class="form-control" placeholder="0" id="diameter">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td colspan=7>
+                            <input type="number" class="form-control" placeholder="0" id="quantity">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th class="col-xs-12">&nbsp;</th>
+                        <th>grams</th>
+                        <th>oz</th>
+                        <th>lbs</th>
+                        <th>cups</th>
+                        <th>tsp</th>
+                        <th>tbsp</th>
+                    </tr>
+                    <tr>
+                        <td>Flour</td>
+                        <td>&nbsp;</td>
+                        <td id="flour-gram"></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Water</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="0" id="water">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="water-gram"></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Yeast</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="0" id="yeast">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="yeast-gram"></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Salt</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="0" id="salt">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="salt-gram"></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Oil</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="0" id="oil">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="oil-gram"></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Sugar</td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="0" id="sugar">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="sugar-gram"></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>Total (g)</td>
+                        <td>&nbsp;</td>
+                        <td colspan=6>
+                            <div id="total-gram"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Per ball (g)</td>
+                        <td>&nbsp;</td>
+                        <td colspan=6>
+                            <div id="perball-gram"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="card">
+                <div class="card-body" id="url">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="nosleep.min.js"></script>
+    <script>
+        var noSleep = new NoSleep();
+        var wakeLockEnabled = false;
+        var toggleEl = document.querySelector("#toggle");
+        toggleEl.addEventListener('click', function() {
+            if (!wakeLockEnabled) {
+                noSleep.enable(); // keep the screen on!
+                wakeLockEnabled = true;
+                toggleEl.innerHTML = "Wake Lock is enabled";
+            } else {
+                noSleep.disable(); // let the screen turn off.
+                wakeLockEnabled = false;
+                toggleEl.innerHTML = "Wake Lock is disabled";
+            }
+        }, false);
+    </script>
+    <script>
+        document.addEventListener('input', calc);
+        function calc() {
+            tf = Number(document.getElementById("thicknessFactor").value);
+            quantity = Number(document.getElementById("quantity").value);
+            diameter = Number(document.getElementById("diameter").value);
+            water = Number(document.getElementById("water").value);
+            yeast = Number(document.getElementById("yeast").value);
+            salt = Number(document.getElementById("salt").value);
+            oil = Number(document.getElementById("oil").value);
+            sugar = Number(document.getElementById("sugar").value);
+            total = (Math.PI * Math.pow(diameter / 2, 2)) * tf * quantity * 28.35;
+            flour = total / (1 + ((water + yeast + salt + oil + sugar) / 100));
+
+            document.getElementById("total-gram").innerHTML = (total).toFixed(2);
+            document.getElementById("perball-gram").innerHTML = (total / quantity).toFixed(2);
+            document.getElementById("flour-gram").innerHTML = (flour).toFixed(2);
+            document.getElementById("water-gram").innerHTML = (flour * (water / 100)).toFixed(2);
+            document.getElementById("yeast-gram").innerHTML = (flour * (yeast / 100)).toFixed(2);
+            document.getElementById("salt-gram").innerHTML = (flour * (salt / 100)).toFixed(2);
+            document.getElementById("oil-gram").innerHTML = (flour * (oil / 100)).toFixed(2);
+            document.getElementById("sugar-gram").innerHTML = (flour * (sugar / 100)).toFixed(2);
+
+            hostAddress = top.location.host.toString();
+            url = "https://" + hostAddress + "/index.php?";
+            url += "thicknessFactor=" + tf;
+            url += "&diameter=" + diameter;
+            url += "&quantity=" + quantity;
+            url += "&water=" + water;
+            url += "&yeast=" + yeast;
+            url += "&salt=" + salt;
+            url += "&sugar=" + sugar;
+            url += "&oil=" + oil;
+            document.getElementById("url").innerHTML = "<a href='" + url + "'>" + url + "</a>";
+        }
+
+        function _setNumber(field, value) {
+            document.getElementById(field).innerHTML = value.toFixed(2);
+        }
+
+        document.addEventListener("DOMContentLoaded", function(e) {
+            var url = new URL(window.location.href);
+            var query_string = url.search;
+            var search_params = new URLSearchParams(query_string);
+
+            document.getElementById("thicknessFactor").value = (search_params.get('thicknessFactor') == null) ? 0.075 : search_params.get('thicknessFactor');
+            document.getElementById("diameter").value = (search_params.get('diameter') == null) ? 11 : search_params.get('diameter');
+            document.getElementById("quantity").value = (search_params.get('quantity') == null) ? 2 : search_params.get('quantity');
+            document.getElementById("water").value = (search_params.get('water') == null) ? 65 : search_params.get('water');
+            document.getElementById("yeast").value = (search_params.get('yeast') == null) ? 0.5 : search_params.get('yeast');
+            document.getElementById("salt").value = (search_params.get('salt') == null) ? 2.5 : search_params.get('salt');
+            document.getElementById("sugar").value = (search_params.get('sugar') == null) ? 0.0 : search_params.get('sugar');
+            document.getElementById("oil").value = (search_params.get('oil') == null) ? 0.0 : search_params.get('oil');
+            calc();
+        });
+    </script>
+</body>
