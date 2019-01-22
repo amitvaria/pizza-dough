@@ -222,8 +222,9 @@
             document.getElementById("sugar-gram").innerHTML = (flour * (sugar / 100)).toFixed(2);
 
             hostAddress = top.location.host.toString();
-            url = "https://" + hostAddress + "/index.html?";
-            url += "thicknessFactor=" + tf;
+            pathName = top.location.pathName.toString();
+            url = "https://" + hostAddress + pathName;
+            url += "?thicknessFactor=" + tf;
             url += "&diameter=" + diameter;
             url += "&quantity=" + quantity;
             url += "&water=" + water;
