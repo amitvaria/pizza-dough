@@ -243,7 +243,7 @@
             var sugar_gram = flour * (Number(sugar.value) / 100);
 
             //Make the shareable URL
-            url = top.location.origin.toString() + top.location.host.toString() + top.location.pathname.toString();
+            url = top.location.origin.toString() + top.location.pathname.toString();
             url += "?thicknessFactor=" + Number(tf.value);
             url += "&quantity=" + Number(quantity.value);
             url += "&water=" + Number(water.value);
