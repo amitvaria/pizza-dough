@@ -70,50 +70,55 @@
                     <tr>
                         <td>Flour</td>
                         <td>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="flour1">Flour #1</label>
-                                    <input type="text" class="form-control" placeholder="Flour" id="flour1">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="flour1">Amount</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour1_amt">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
+                            <button class="btn btn-primary" id="add-flour">Add flour</button>
+                            <div id="multi-flour" style="display:none;">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="flour1">Flour #1</label>
+                                        <input type="text" class="form-control" placeholder="Flour" id="flour1">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="flour1">Amount</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour1_amt">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="flour2">Flour #2</label>
-                                    <input type="text" class="form-control" placeholder="Flour" id="flour2">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="flour2">Amount</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour2_amt">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="flour2">Flour #2</label>
+                                        <input type="text" class="form-control" placeholder="Flour" id="flour2">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="flour2">Amount</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour2_amt">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="flour3">Flour #3</label>
-                                    <input type="text" class="form-control" placeholder="Flour" id="flour3">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="flour3">Amount</label>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour3_amt">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="flour3">Flour #3</label>
+                                        <input type="text" class="form-control" placeholder="Flour" id="flour3">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="flour3">Amount</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour3_amt">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="alert alert-warning" role="alert" id="flour-error">Amount should add up to 100</div>
+                                <button class="btn btn-secondary btn-sm" id="clear-flour">Clear flour</button>
                             </div>
                         </td>
                         <td id="flour-gram"></td>
@@ -261,6 +266,7 @@
 
     <script src="dough.js"></script>
     <script>
+
         let tf = document.getElementById("thicknessFactor");
         let quantity = document.getElementById("quantity");
         let shape = document.getElementById("shape");
@@ -273,6 +279,7 @@
         let flour2_amt = document.getElementById("flour2_amt");
         let flour3 = document.getElementById("flour3");
         let flour3_amt = document.getElementById("flour3_amt");
+        let flour_error = document.getElementById("flour-error");
         let water = document.getElementById("water");
         let yeast_type = document.getElementById("yeast_type");
         let yeast = document.getElementById("yeast");
@@ -283,20 +290,21 @@
         let rectangular_row = document.getElementById("rectangular-row");
         let diameter_row = document.getElementById("diameter-row");
 
+        //Flour UI
+        document.getElementById("add-flour").addEventListener("click", function(e) {
+            document.getElementById("add-flour").style.display = "none"
+            document.getElementById("multi-flour").style.display = null;
+        }, false);
+
+        document.getElementById("clear-flour").addEventListener("click", function(e) {
+            document.getElementById("multi-flour").style.display = "none"
+            document.getElementById("add-flour").style.display = null;
+            flour1.value = flour1_amt.value = flour2.value = flour2_amt.value = flour3.value = flour3_amt.value = "";
+            calc();
+        }, false);
+
         document.addEventListener('input', calc);
         function calc() {
-            //Update UI
-            switch(shape.value.toString()) {
-              case "Round":
-                rectangular_row.style.display = "none";
-                diameter_row.style.display = null;
-                break;
-              case "Rectangular":
-                rectangular_row.style.display = null;
-                diameter_row.style.display = "none";
-                break;
-            }
-
             //Calculate dough measurements
             doughResult = new DoughRequest().setTf(thicknessFactor.value)
                                       .setQuantity(quantity.value)
@@ -310,6 +318,11 @@
                                       .setSalt(salt.value)
                                       .setOil(oil.value)
                                       .setSugar(sugar.value)
+                                      .setFlours([
+                                        new Flour(flour1.value, flour1_amt.value),
+                                        new Flour(flour2.value, flour2_amt.value),
+                                        new Flour(flour3.value, flour3_amt.value)
+                                      ])
                                       .calculate();
 
             //Make the shareable URL
@@ -328,6 +341,25 @@
             document.getElementById("salt-gram").innerHTML = doughResult.getSaltGram().toFixed(2);
             document.getElementById("oil-gram").innerHTML = doughResult.getOilGram().toFixed(2);
             document.getElementById("sugar-gram").innerHTML = doughResult.getSugarGram().toFixed(2);
+
+
+            //Update UI
+            switch(shape.value.toString()) {
+              case "Round":
+                rectangular_row.style.display = "none";
+                diameter_row.style.display = null;
+                break;
+              case "Rectangular":
+                rectangular_row.style.display = null;
+                diameter_row.style.display = "none";
+                break;
+            }
+
+            if(doughResult.doughRequest.isValidFlourAmount()) {
+                flour_error.style.display = "none";                
+            } else {
+                flour_error.style.display = null;
+            }
         }
 
         document.addEventListener("DOMContentLoaded", function(e) {
@@ -346,6 +378,21 @@
             salt.value = doughRequest.getSalt();
             sugar.value = doughRequest.getSugar();
             oil.value = doughRequest.getOil();
+
+            if(doughRequest.getFlours().length >= 1){
+                flour1.value = doughRequest.getFlours()[0].getName();
+                flour1_amt.value = doughRequest.getFlours()[0].getAmount();
+            }
+            if(doughRequest.getFlours().length >= 2){
+                flour2.value = doughRequest.getFlours()[1].getName();
+                flour2_amt.value = doughRequest.getFlours()[1].getAmount();
+            }
+            if(doughRequest.getFlours().length >= 3){
+                flour3.value = doughRequest.getFlours()[2].getName();
+                flour3_amt.value = doughRequest.getFlours()[2].getAmount();
+            }
+
+
 
             calc();
         });

@@ -46,6 +46,10 @@ class DoughRequest {
         this.setSugar(search_params.get('sugar'));
         this.setOil(search_params.get('oil'));
 
+        this.addFlour(new Flour(search_params.get('f0'), search_params.get('famt0')));
+        this.addFlour(new Flour(search_params.get('f1'), search_params.get('famt1')));
+        this.addFlour(new Flour(search_params.get('f2'), search_params.get('famt2')));
+
 		return this;
 	}
 
@@ -91,8 +95,10 @@ class DoughRequest {
                 break;
         }
         for(var f = 0; f < this.getFlours().length; f++) {
-        	params.push("f" + f + "=" + encodeURIComponent(this.getFlours()[f].getName()));
-        	params.push("famt" + f + "=" + encodeURIComponent(this.getFlours()[f].getAmount()));
+        	if(this.getFlours()[f].getName() != null && this.getFlours()[f].getName() != 0)
+	        	params.push("f" + f + "=" + encodeURIComponent(this.getFlours()[f].getName()));
+	        if(this.getFlours()[f].getAmount() != null && this.getFlours()[f].getAmount() != 0)
+	        	params.push("famt" + f + "=" + encodeURIComponent(this.getFlours()[f].getAmount()));
         }
 
         return _url + "?" + params.join("&");
@@ -181,13 +187,25 @@ class DoughRequest {
 		return this;
 	}
 
+	getFlourAmount() {
+		if(this.getFlours().length == 0)
+			return 100;
+
+		var sum = 0;
+		for(var f = 0; f < this.getFlours().length; f++) {
+			sum += Number(this.getFlours()[f].getAmount());
+		}
+		return sum;
+
+	}
+
 	isValidFlourAmount() {
 		if(this.getFlours().length == 0)
 			return true;
 
 		var sum = 0;
 		for(var f = 0; f < this.getFlours().length; f++) {
-			sum += this.getFlours()[f].getAmount();
+			sum += Number(this.getFlours()[f].getAmount());
 			if(sum > 100)
 				return false;
 		}
@@ -253,9 +271,9 @@ class DoughRequest {
 
 	addFlour(flour) {
 		if(Flour.prototype.isPrototypeOf(flour)){
-			this.flours.push(flour);
-		}
-		else {
+			if(!flour.isEmpty())
+				this.flours.push(flour);
+		} else {
 			throw "Not Flour";
 		}
 		return this;
@@ -404,12 +422,26 @@ class DoughResult{
 	}
 
 	getHTMLTable() {
+		var flour_rows = ""
+
+		if(this.doughRequest.getFlours().length == 0){
+			flour_rows += "<tr>";
+			flour_rows += "<td>Flour</td>";
+			flour_rows += "<td>" + this.getFlourGram().toFixed(2) + "</td>";
+			flour_rows += "</tr>";
+		} else {
+			for(var f = 0; f < this.doughRequest.getFlours().length; f++){
+				flour_rows += "<tr>";
+				flour_rows += "<td>" + this.doughRequest.getFlours()[f].getName() + "</td>";
+				flour_rows += "<td>" + (this.getFlourGram() * this.doughRequest.getFlours()[f].getAmount() / 100).toFixed(2) + "</td>";
+				flour_rows += "</tr>";
+			}
+		}
+
+
 		return `
 			<table>
-                    <tr>
-                        <td>Flour</td>
-                        <td>${this.getFlourGram().toFixed(2)}g</td>
-                    </tr>
+                    ${flour_rows}
                     <tr>
                         <td>Water (${this.doughRequest.getWater()}%)</td>
                         <td>${this.getWaterGram().toFixed(2)}g</td>
@@ -439,6 +471,10 @@ class Flour {
 	constructor(name, amount) {
 		this.name = name;
 		this.amount = amount;
+	}
+
+	isEmpty() {
+		return ((this.getName() == null || this.getName() == "") && (this.getAmount() == null || this.getAmount() == ""))
 	}
 
 	getName() {
