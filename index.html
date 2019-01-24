@@ -20,6 +20,7 @@
     </nav>
     <div class="container">
         <div class="row mt-3">
+            <a href="index.html?thicknessFactor=0.075&quantity=2&water=65&yeast_type=IDY&yeast=1.5&salt=2.5&sugar=0&oil=0&shape=Round&diameter=11">Sample Dough</a>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-sm">
                     <tr>
@@ -214,7 +215,6 @@
 
     <script src="dough.js"></script>
     <script>
-        let doughRequest = new DoughRequest();
         let tf = document.getElementById("thicknessFactor");
         let quantity = document.getElementById("quantity");
         let shape = document.getElementById("shape");
@@ -233,7 +233,20 @@
 
         document.addEventListener('input', calc);
         function calc() {
-            doughResult = doughRequest.setTf(thicknessFactor.value)
+            //Update UI
+            switch(shape.value.toString()) {
+              case "Round":
+                rectangular_row.style.display = "none";
+                diameter_row.style.display = null;
+                break;
+              case "Rectangular":
+                rectangular_row.style.display = null;
+                diameter_row.style.display = "none";
+                break;
+            }
+
+            //Calculate dough measurements
+            doughResult = new DoughRequest().setTf(thicknessFactor.value)
                                       .setQuantity(quantity.value)
                                       .setShape(shape.value)
                                       .setDiameter(diameter.value)
@@ -246,17 +259,6 @@
                                       .setOil(oil.value)
                                       .setSugar(sugar.value)
                                       .calculate();
-
-            switch(shape.value.toString()) {
-              case "Round":
-                rectangular_row.style.display = "none";
-                diameter_row.style.display = null;
-                break;
-              case "Rectangular":
-                rectangular_row.style.display = null;
-                diameter_row.style.display = "none";
-                break;
-            }
 
             //Make the shareable URL
             url = doughResult.doughRequest.getShareableURL(top.location.origin.toString(), top.location.pathname.toString());
@@ -277,7 +279,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", function(e) {
-            doughRequest.parseURL(window.location.href);
+            //Parse the URL
+            doughRequest = new DoughRequest().parseURL(window.location.href);
 
             tf.value = doughRequest.getTf();
             diameter.value = doughRequest.getDiameter();
@@ -291,7 +294,7 @@
             salt.value = doughRequest.getSalt();
             sugar.value = doughRequest.getSugar();
             oil.value = doughRequest.getOil();
-            
+
             calc();
         });
     </script>
