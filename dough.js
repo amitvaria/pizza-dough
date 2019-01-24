@@ -181,8 +181,10 @@ class DoughRequest {
 			if(!Flour.prototype.isPrototypeOf(flours[f])){
 				throw "Must be an array of Flour";
 			}
+
+			if(!flours[f].isEmpty())
+				this.flours.push(flours[f]);
 		}
-		this.flours = flours;
 		
 		return this;
 	}
