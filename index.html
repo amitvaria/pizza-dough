@@ -70,7 +70,7 @@
                     <tr>
                         <td>Flour</td>
                         <td>
-                            <button class="btn btn-primary" id="add-flour">Add flour</button>
+                            <button class="btn btn-primary btn-sm" id="add-flour">Customize flour</button>
                             <div id="multi-flour" style="display:none;">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -392,7 +392,10 @@
                 flour3_amt.value = doughRequest.getFlours()[2].getAmount();
             }
 
-
+            if(doughRequest.getFlours().length > 0) {
+                document.getElementById("add-flour").style.display = "none"
+                document.getElementById("multi-flour").style.display = null;
+            }
 
             calc();
         });
