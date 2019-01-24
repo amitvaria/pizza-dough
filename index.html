@@ -68,7 +68,53 @@
                     </tr>
                     <tr>
                         <td>Flour</td>
-                        <td>&nbsp;</td>
+                        <td>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="flour1">Flour #1</label>
+                                    <input type="text" class="form-control" placeholder="Flour" id="flour1">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="flour1">Amount</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour1_amt">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="flour2">Flour #2</label>
+                                    <input type="text" class="form-control" placeholder="Flour" id="flour2">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="flour2">Amount</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour2_amt">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="flour3">Flour #3</label>
+                                    <input type="text" class="form-control" placeholder="Flour" id="flour3">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="flour3">Amount</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour3_amt">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
                         <td id="flour-gram"></td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -219,6 +265,12 @@
         let diameter = document.getElementById("diameter");
         let length = document.getElementById("length");
         let width = document.getElementById("width");
+        let flour1 = document.getElementById("flour1");
+        let flour1_amt = document.getElementById("flour1_amt");
+        let flour2 = document.getElementById("flour2");
+        let flour2_amt = document.getElementById("flour2_amt");
+        let flour3 = document.getElementById("flour3");
+        let flour3_amt = document.getElementById("flour3_amt");
         let water = document.getElementById("water");
         let yeast_type = document.getElementById("yeast_type");
         let yeast = document.getElementById("yeast");
@@ -231,6 +283,8 @@
 
         document.addEventListener('input', calc);
         function calc() {
+
+            //Calculate values
             var total;
             switch(shape.value.toString()) {
               case "Round":
@@ -260,6 +314,12 @@
             url = top.location.origin.toString() + top.location.pathname.toString();
             url += "?thicknessFactor=" + Number(tf.value);
             url += "&quantity=" + Number(quantity.value);
+            url += "&flour1=" + flour1.value;
+            url += "&flour1_amt=" + Number(flour1_amt.value);
+            url += "&flour2=" + flour2.value;
+            url += "&flour2_amt=" + Number(flour2_amt.value);
+            url += "&flour3=" + flour3.value;
+            url += "&flour3_amt=" + Number(flour3_amt.value);
             url += "&water=" + Number(water.value);
             url += "&yeast_type=" + yeast_type.value;
             url += "&yeast=" + Number(yeast.value);
