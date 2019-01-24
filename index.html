@@ -12,15 +12,28 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">Pizza Dough Calculator</span>
-        <form class="form-inline">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Pizza Dough Calculator</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Calculator<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/favorites.html">Favorites<span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
             <button class="btn btn-sm btn-outline-secondary" type="button" id="toggle">Wake Lock is disabled</button>
         </form>
     </nav>
     <div class="container">
         <div class="row mt-3">
-            <a href="index.html?thicknessFactor=0.075&quantity=2&water=65&yeast_type=IDY&yeast=1.5&salt=2.5&sugar=0&oil=0&shape=Round&diameter=11">Sample Dough</a>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-sm">
                     <tr>
