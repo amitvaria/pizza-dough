@@ -29,75 +29,73 @@ class DoughRequest {
         var query_string = url.search;
         var search_params = new URLSearchParams(query_string);
 
-        this.setTf(
-        	(search_params.get('thicknessFactor') == null) ? 0.075 : search_params.get('thicknessFactor')
-        );
-
-        this.setDiameter(
-        	(search_params.get('diameter') == null) ? 11 : search_params.get('diameter')
-        );
-        this.setShape(
+        this.setTf(search_params.get('thicknessFactor'));
+        this.setDiameter(search_params.get('diameter'));
+	    this.setShape(
         	(search_params.get('shape') == null) ? "Round" : search_params.get('shape')
         );
-        this.setLength(
-        	(search_params.get('length') == null) ? 11 : search_params.get('length')
-        );
-        this.setWidth(
-        	(search_params.get('diameter') == null) ? 11 : search_params.get('diameter')
-        );
-        this.setQuantity(
-        	(search_params.get('quantity') == null) ? 2 : search_params.get('quantity')
-        );
-        this.setWater(
-        	(search_params.get('water') == null) ? 65 : search_params.get('water')
-        );
+        this.setLength(search_params.get('length'));
+        this.setWidth(search_params.get('diameter'));
+        this.setQuantity(search_params.get('quantity'));
+        this.setWater(search_params.get('water'));
 	    this.setYeastType(
         	(search_params.get('yeast_type') == null) ? "IDY" : search_params.get('yeast_type')
         );
-        this.setYeast(
-        	(search_params.get('yeast') == null) ? 0.5 : search_params.get('yeast')
-        );
-        this.setSalt(
-        	(search_params.get('salt') == null) ? 2.5 : search_params.get('salt')
-        );
-        this.setSugar(
-        	(search_params.get('sugar') == null) ? 0.0 : search_params.get('sugar')
-        );
-        this.setOil(
-        	(search_params.get('oil') == null) ? 0.0 : search_params.get('oil')
-        );
+        this.setYeast(search_params.get('yeast'));
+        this.setSalt(search_params.get('salt'));
+        this.setSugar(search_params.get('sugar'));
+        this.setOil(search_params.get('oil'));
 
 		return this;
 	}
 
 	getShareableURL(origin, pathname) {
 		var _url = String(origin) + String(pathname);
-        _url += "?thicknessFactor=" + encodeURIComponent(this.tf);
-        _url += "&quantity=" + encodeURIComponent(this.quantity);
-        _url += "&water=" + encodeURIComponent(this.water);
-        _url += "&yeast_type=" + encodeURIComponent(this.yeastType);
-        _url += "&yeast=" + encodeURIComponent(this.yeast);
-        _url += "&salt=" + encodeURIComponent(this.salt);
-        _url += "&sugar=" + encodeURIComponent(this.sugar);
-        _url += "&oil=" + encodeURIComponent(this.oil);
-        _url += "&shape=" + encodeURIComponent(this.shape);
-        switch(this.shape) {
+		var params = [];
+
+		if(this.getTf() != null && this.getTf() != 0)
+	        params.push("thicknessFactor=" + encodeURIComponent(this.getTf()));
+
+	    if(this.getQuantity() != null && this.getQuantity() != 0)
+	        params.push("quantity=" + encodeURIComponent(this.getQuantity()));
+
+	    if(this.getWater() != null && this.getWater() != 0)
+	   		params.push("water=" + encodeURIComponent(this.getWater()));
+
+	   	if(this.getYeastType() != null && this.getYeastType() != 0)
+        	params.push("yeast_type=" + encodeURIComponent(this.getYeastType()));
+
+        if(this.getYeast() != null && this.getYeast() != 0)
+        	params.push("yeast=" + encodeURIComponent(this.getYeast()));
+
+        if(this.getSalt() != null && this.getSalt() != 0)
+        	params.push("salt=" + encodeURIComponent(this.getSalt()));
+
+        if(this.getSugar() != null && this.getSugar() != 0)
+        	params.push("sugar=" + encodeURIComponent(this.getSugar()));
+
+        if(this.getOil() != null && this.getOil() != 0)
+	        params.push("oil=" + encodeURIComponent(this.getOil()));
+
+        params.push("shape=" + encodeURIComponent(this.getShape()));
+
+        switch(this.getShape()) {
             case "Round":
-                _url += "&diameter=" + encodeURIComponent(this.diameter)
+                params.push("diameter=" + encodeURIComponent(this.getDiameter()))
                 break;
             case "Rectangular":
-                _url += "&length=" + encodeURIComponent(this.length);
-                _url += "&width=" + encodeURIComponent(this.width);
+                params.push("length=" + encodeURIComponent(this.getLength()));
+                params.push("width=" + encodeURIComponent(this.getWidth()));
                 break;
             default:
                 break;
         }
         for(var f = 0; f < this.getFlours().length; f++) {
-        	_url += "&f" + f + "=" + encodeURIComponent(this.getFlours()[f].getName());
-        	_url += "&famt" + f + "=" + encodeURIComponent(this.getFlours()[f].getAmount());
+        	params.push("f" + f + "=" + encodeURIComponent(this.getFlours()[f].getName()));
+        	params.push("famt" + f + "=" + encodeURIComponent(this.getFlours()[f].getAmount()));
         }
 
-        return _url;
+        return _url + "?" + params.join("&");
 	}
 
 	setTf(tf) {
