@@ -88,7 +88,16 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td>Yeast</td>
+                        <td>
+                            Yeast
+                            <div class="form-group">
+                                <select id="yeast_type" class="form-control">
+                                    <option selected>IDY</option>
+                                    <option>ADY</option>
+                                    <option>Cake</option>
+                                </select>
+                            </div>
+                        </td>
                         <td>
                             <div class="input-group">
                                 <input type="number" class="form-control" placeholder="0" step="any" id="yeast">
@@ -211,6 +220,7 @@
         let length = document.getElementById("length");
         let width = document.getElementById("width");
         let water = document.getElementById("water");
+        let yeast_type = document.getElementById("yeast_type");
         let yeast = document.getElementById("yeast");
         let salt = document.getElementById("salt");
         let oil = document.getElementById("oil");
@@ -251,6 +261,7 @@
             url += "?thicknessFactor=" + Number(tf.value);
             url += "&quantity=" + Number(quantity.value);
             url += "&water=" + Number(water.value);
+            url += "&yeast_type=" + yeast_type.value;
             url += "&yeast=" + Number(yeast.value);
             url += "&salt=" + Number(salt.value);
             url += "&sugar=" + Number(sugar.value);
@@ -323,6 +334,7 @@
             width.value = (search_params.get('diameter') == null) ? 11 : search_params.get('diameter');
             quantity.value = (search_params.get('quantity') == null) ? 2 : search_params.get('quantity');
             water.value = (search_params.get('water') == null) ? 65 : search_params.get('water');
+            yeast_type.value = (search_params.get('yeast_type') == null) ? "IDY" : search_params.get('yeast_type');
             yeast.value = (search_params.get('yeast') == null) ? 0.5 : search_params.get('yeast');
             salt.value = (search_params.get('salt') == null) ? 2.5 : search_params.get('salt');
             sugar.value = (search_params.get('sugar') == null) ? 0.0 : search_params.get('sugar');
