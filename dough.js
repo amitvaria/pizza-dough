@@ -1,6 +1,6 @@
 'use strict';
 class DoughRequest {
-	constructor(tf, quantity, shape, diameter, length, width, flours, water, yeastType, yeast, salt, oil, sugar)  {
+	constructor(tf, quantity, shape, diameter, length, width, flours, water, yeastType, yeast, salt, oil, sugar, image)  {
 		this.shapeCheck = ["Round", "Rectangular"];
 
 		this.setTf(tf);
@@ -17,6 +17,7 @@ class DoughRequest {
 		this.setOil(oil);
 		this.setSugar(sugar);
 		this.doughResult = new DoughResult(this);
+		this.image = image;
 		return this;
 	}
 
@@ -49,6 +50,8 @@ class DoughRequest {
         this.addFlour(new Flour(search_params.get('f0'), search_params.get('famt0')));
         this.addFlour(new Flour(search_params.get('f1'), search_params.get('famt1')));
         this.addFlour(new Flour(search_params.get('f2'), search_params.get('famt2')));
+
+        this.setImage(search_params.get('image'));
 
 		return this;
 	}
@@ -100,6 +103,10 @@ class DoughRequest {
 	        if(this.getFlours()[f].getAmount() != null && this.getFlours()[f].getAmount() != 0)
 	        	params.push("famt" + f + "=" + encodeURIComponent(this.getFlours()[f].getAmount()));
         }
+
+        if(this.getImage() != null && this.getImage() != "")
+	        params.push("image=" + encodeURIComponent(this.getImage()));
+
 
         return _url + "?" + params.join("&");
 	}
@@ -279,6 +286,15 @@ class DoughRequest {
 			throw "Not Flour";
 		}
 		return this;
+	}
+
+	setImage(image) {
+		this.image = image;
+		return this;
+	}
+
+	getImage(image) {
+		return this.image;
 	}
 }
 

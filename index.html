@@ -34,225 +34,244 @@
     </nav>
     <div class="container">
         <div class="row mt-3">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-sm">
-                    <tr>
-                        <td>Thickness Factor</td>
-                        <td colspan=7>
-                            <input type="number" class="form-control" placeholder="0" step="any" id="thicknessFactor">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Shape</td>
-                        <td colspan=7>
-                            <div class="form-group">
-                                <select id="shape" class="form-control">
-                                    <option selected>Round</option>
-                                    <option>Rectangular</option>
-                                </select>
-                            </div>
-                            <div class="form-row" id="rectangular-row">
-                                <div class="form-group col-md-6">
-                                    <label for="width">Width</label>
-                                    <input type="number" step="any" class="form-control" placeholder="0" id="width">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-sm">
+                        <tr>
+                            <td>Thickness Factor</td>
+                            <td colspan=7>
+                                <input type="number" class="form-control" placeholder="0" step="any" id="thicknessFactor">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Shape</td>
+                            <td colspan=7>
+                                <div class="form-group">
+                                    <select id="shape" class="form-control">
+                                        <option selected>Round</option>
+                                        <option>Rectangular</option>
+                                    </select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="length">Length</label>
-                                    <input type="number" step="any" class="form-control" placeholder="0" id="length">
-                                </div>
-                            </div>
-                            <div class="form-group" id="diameter-row">
-                                <label for="diameter">Diameter</label>
-                                <input type="number" class="form-control" placeholder="0" step="any" id="diameter">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Quantity</td>
-                        <td colspan=7>
-                            <input type="number" class="form-control" placeholder="0" step="any" id="quantity">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th class="col-xs-12">&nbsp;</th>
-                        <th>grams</th>
-                        <th>tsp</th>
-                        <th>tbsp</th>
-                    </tr>
-                    <tr>
-                        <td>Flour</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm" id="add-flour">Customize flour</button>
-                            <div id="multi-flour" style="display:none;">
-                                <div class="form-row">
+                                <div class="form-row" id="rectangular-row">
                                     <div class="form-group col-md-6">
-                                        <label for="flour1">Flour #1</label>
-                                        <input type="text" class="form-control" placeholder="Flour" id="flour1">
+                                        <label for="width">Width</label>
+                                        <input type="number" step="any" class="form-control" placeholder="0" id="width">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="flour1">Amount</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour1_amt">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">%</span>
+                                        <label for="length">Length</label>
+                                        <input type="number" step="any" class="form-control" placeholder="0" id="length">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="diameter-row">
+                                    <label for="diameter">Diameter</label>
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="diameter">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Quantity</td>
+                            <td colspan=7>
+                                <input type="number" class="form-control" placeholder="0" step="any" id="quantity">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th class="col-xs-12">&nbsp;</th>
+                            <th>grams</th>
+                            <th>tsp</th>
+                            <th>tbsp</th>
+                        </tr>
+                        <tr>
+                            <td>Flour</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" id="add-flour">Customize flour</button>
+                                <div id="multi-flour" style="display:none;">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="flour1">Flour #1</label>
+                                            <input type="text" class="form-control" placeholder="Flour" id="flour1">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="flour1">Amount</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="0" step="any" id="flour1_amt">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="flour2">Flour #2</label>
-                                        <input type="text" class="form-control" placeholder="Flour" id="flour2">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="flour2">Amount</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour2_amt">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">%</span>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="flour2">Flour #2</label>
+                                            <input type="text" class="form-control" placeholder="Flour" id="flour2">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="flour2">Amount</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="0" step="any" id="flour2_amt">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="flour3">Flour #3</label>
-                                        <input type="text" class="form-control" placeholder="Flour" id="flour3">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="flour3">Amount</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour3_amt">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">%</span>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="flour3">Flour #3</label>
+                                            <input type="text" class="form-control" placeholder="Flour" id="flour3">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="flour3">Amount</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="0" step="any" id="flour3_amt">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="alert alert-warning" role="alert" id="flour-error">Amount should add up to 100</div>
+                                    <button class="btn btn-secondary btn-sm" id="clear-flour">Clear flour</button>
                                 </div>
-                                <div class="alert alert-warning" role="alert" id="flour-error">Amount should add up to 100</div>
-                                <button class="btn btn-secondary btn-sm" id="clear-flour">Clear flour</button>
-                            </div>
-                        </td>
-                        <td id="flour-gram"></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Water</td>
-                        <td>
-                            <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" step="any" id="water">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">%</span>
+                            </td>
+                            <td id="flour-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Water</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="water">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td id="water-gram"></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Yeast
-                            <div class="form-group">
-                                <select id="yeast_type" class="form-control">
-                                    <option selected>IDY</option>
-                                    <option>ADY</option>
-                                    <option>Cake</option>
-                                </select>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" step="any" id="yeast">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">%</span>
+                            </td>
+                            <td id="water-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Yeast
+                                <div class="form-group">
+                                    <select id="yeast_type" class="form-control">
+                                        <option selected>IDY</option>
+                                        <option>ADY</option>
+                                        <option>Cake</option>
+                                    </select>
                                 </div>
-                            </div>
-                        </td>
-                        <td id="yeast-gram"></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Salt</td>
-                        <td>
-                            <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" step="any" id="salt">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">%</span>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="yeast">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td id="salt-gram"></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Oil</td>
-                        <td>
-                            <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" step="any" id="oil">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">%</span>
+                            </td>
+                            <td id="yeast-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Salt</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="salt">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td id="oil-gram"></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Sugar</td>
-                        <td>
-                            <div class="input-group">
-                                <input type="number" class="form-control" placeholder="0" step="any" id="sugar">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">%</span>
+                            </td>
+                            <td id="salt-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Oil</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="oil">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td id="sugar-gram"></td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>Total (g)</td>
-                        <td>&nbsp;</td>
-                        <td colspan=6>
-                            <div id="total-gram"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Per ball (g)</td>
-                        <td>&nbsp;</td>
-                        <td colspan=6>
-                            <div id="perball-gram"></div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="card">
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="card">
-                <div class="card-header">
-                    Sharing Options
+                            </td>
+                            <td id="oil-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Sugar</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="sugar">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="sugar-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Total (g)</td>
+                            <td>&nbsp;</td>
+                            <td colspan=6>
+                                <div id="total-gram"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Per ball (g)</td>
+                            <td>&nbsp;</td>
+                            <td colspan=6>
+                                <div id="perball-gram"></div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">URL</h5>
-                    <p class="card-text" id="url"></p>
-                    <h5 class="card-title">Table</h5>
-                    <p class="card-text" id="table"></p>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Image Upload
+                    </div>
+                    <div class="card-body">
+                        <form id="imgur">
+                            <input id="imgurUpload" type="file" class="imgur" accept="image/*" data-max-size="5000" onchange="upload(this.files[0])"/>
+                            <div class="progress" id="upload-progress" style="display:none;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                            </div>
+                        </form>
+                        <p class="card-text" >
+                            <img id="image-preview" class="img-fluid rounded mx-auto d-block" />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Sharing Options
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">URL</h5>
+                        <p class="card-text" id="url"></p>
+                        <h5 class="card-title">Table</h5>
+                        <p class="card-text" id="table"></p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -336,6 +355,7 @@
                                         new Flour(flour2.value, flour2_amt.value),
                                         new Flour(flour3.value, flour3_amt.value)
                                       ])
+                                      .setImage(document.getElementById("image-preview").src)
                                       .calculate();
 
             //Make the shareable URL
@@ -354,7 +374,6 @@
             document.getElementById("salt-gram").innerHTML = doughResult.getSaltGram().toFixed(2);
             document.getElementById("oil-gram").innerHTML = doughResult.getOilGram().toFixed(2);
             document.getElementById("sugar-gram").innerHTML = doughResult.getSugarGram().toFixed(2);
-
 
             //Update UI
             switch(shape.value.toString()) {
@@ -410,9 +429,50 @@
                 document.getElementById("multi-flour").style.display = null;
             }
 
+            if(doughRequest.getImage() != null) {
+                document.getElementById("upload-progress").style.display = "none";
+                document.getElementById("imgurUpload").style.display = "none";
+                document.getElementById("image-preview").src = doughRequest.getImage();
+            }
+
             calc();
         });
+
+
+        function upload(file) {
+            document.getElementById("imgurUpload").style.display = "none";
+            document.getElementById("upload-progress").style.display = "";
+            /* Is the file an image? */
+            if (!file || !file.type.match(/image.*/)) return;
+
+            /* It is! */
+            document.body.className = "uploading";
+
+            /* Lets build a FormData object*/
+            var fd = new FormData(); // I wrote about it: https://hacks.mozilla.org/2011/01/how-to-develop-a-html5-image-uploader/
+            fd.append("image", file); // Append the file
+            var xhr = new XMLHttpRequest(); // Create the XHR (Cross-Domain XHR FTW!!!) Thank you sooooo much imgur.com
+            xhr.open("POST", "https://api.imgur.com/3/image.json"); // Boooom!
+            xhr.onload = function() {
+                // Big win!
+                calc();
+                document.getElementById("upload-progress").style.display = "none";
+                document.getElementById("image-preview").src = JSON.parse(xhr.responseText).data.link;
+                doughResult.doughRequest.setImage(JSON.parse(xhr.responseText).data.link);
+                url = doughResult.doughRequest.getShareableURL(top.location.origin.toString(), top.location.pathname.toString());
+                document.getElementById("url").innerHTML = "<a href='" + url + "'>" + url + "</a>";
+
+            }
+            
+            xhr.setRequestHeader('Authorization', 'Client-ID 8061f70841482dc'); // Get your own key http://api.imgur.com/
+            
+            // Ok, I don't handle the errors. An exercise for the reader.
+
+            /* And now, we send the formdata */
+            xhr.send(fd);
+        }
     </script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133179201-1"></script>
     <script>
