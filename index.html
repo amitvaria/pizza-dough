@@ -289,32 +289,7 @@
             
             if(flours.length > 0) {
                 for(flour=0; flour < flours.length; flour++) {
-                    $(`
-                        <tr id="flour-row-${flourRow + 1}" class="flourRow">
-                            <td>&nbsp;</td>
-                            <td>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="flour${flourRow + 1}">Flour #${flourRow + 1}</label>
-                                        <input type="text" class="form-control" placeholder="Flour" id="flour${flourRow + 1}" name="flour[]" value="${flours[flour].getName()}">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="flour${flourRow + 1}">Amount</label>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour${flourRow + 1}_amt" name="flour_amount[]" value="${flours[flour].getAmount()}">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td id="flour${flourRow + 1}-gram">&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    `).insertAfter("#flour-row-" + flourRow);
-                    flourRow++;
+                    addFlour1(flours[flour].getName(), flours[flour].getAmount());
                 }
             }
 
@@ -392,9 +367,13 @@
                 updateResults();
             });
 
-            $("#add-flour").on("click", {name : "", amount: 0}, addFlour1);
+            $("#add-flour").on("click", function() {
+                addFlour1("", 0);
+                doughRequest2.addFlour(new Flour("", 0));
+                updateResults();
+            });
 
-            function addFlour1(data) {
+            function addFlour1(name, amount) {
                 $(`
                     <tr id="flour-row-${flourRow + 1}" class="flourRow">
                         <td>&nbsp;</td>
@@ -402,12 +381,12 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="flour${flourRow + 1}">Flour #${flourRow + 1}</label>
-                                    <input type="text" class="form-control" placeholder="Flour" id="flour${flourRow + 1}" name="flour[]" value="${data.data.name}">
+                                    <input type="text" class="form-control" placeholder="Flour" id="flour${flourRow + 1}" name="flour[]" value="${name}">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="flour${flourRow + 1}">Amount</label>
                                     <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour${flourRow + 1}_amt" name="flour_amount[]" value="${data.data.amount}">
+                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour${flourRow + 1}_amt" name="flour_amount[]" value="${amount}">
                                         <div class="input-group-append">
                                             <span class="input-group-text">%</span>
                                         </div>
@@ -420,11 +399,8 @@
                         <td>&nbsp;</td>
                     </tr>
                 `).insertAfter("#flour-row-" + flourRow);
-                doughRequest2.addFlour(new Flour("", 0));
-                console.log(doughRequest2.getFlours());
                 flourRow++;
                 $("button.remove-flour").show();
-                updateResults();
             };
 
             $(document).on("click", "button.remove-flour", function(){
@@ -432,8 +408,10 @@
                 doughRequest2.removeFlour();
                 console.log(doughRequest2.getFlours());
                 flourRow--;
-                if(flourRow == 0)
+                if(flourRow == 0) {
                     $("button.remove-flour").hide();
+
+                }
                 updateResults();
             });
 
@@ -483,8 +461,8 @@
 
             function updateResults() {
                 doughRequest2.calculate();
-                
                 if(flourRow == 0) {
+                console.log(doughRequest2.doughResult.getFlourGram().toFixed(2));
                     $("#flour-gram").html(doughRequest2.doughResult.getFlourGram().toFixed(2));
                 }
                 else {
