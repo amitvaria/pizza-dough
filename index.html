@@ -83,120 +83,108 @@
                         </tr>
                         <tr id="flour-row-0">
                             <td>Flour</td>
-                            <td colspan=4>
+                            <td>
                                 <button class="btn btn-primary btn-sm" id="add-flour">Customize flour</button>
                                 <button id="remove-flour" class="remove-flour btn btn-sm btn-secondary" style="display:none;">Remove flour</button>
-                                <div id="multi-flour" style="display:none;">
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label for="width">Width</label>
-                                            <input type="number" step="any" class="form-control" placeholder="0" id="width">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="length">Length</label>
-                                            <input type="number" step="any" class="form-control" placeholder="0" id="length">
-                                        </div>
+                            </td>
+                            <td id="flour-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Water</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="water">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
                                     </div>
-                                    <div class="form-group" id="diameter-row">
-                                        <label for="diameter">Diameter</label>
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="diameter">
+                                </div>
+                            </td>
+                            <td id="water-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Yeast
+                                <div class="form-group">
+                                    <select id="yeast_type" class="form-control">
+                                        <option selected>IDY</option>
+                                        <option>ADY</option>
+                                        <option>Cake</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="yeast">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Water</td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="water">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
-                                        </div>
+                                </div>
+                            </td>
+                            <td id="yeast-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Salt</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="salt">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
                                     </div>
-                                </td>
-                                <td id="water-gram"></td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Yeast
-                                    <div class="form-group">
-                                        <select id="yeast_type" class="form-control">
-                                            <option selected>IDY</option>
-                                            <option>ADY</option>
-                                            <option>Cake</option>
-                                        </select>
+                                </div>
+                            </td>
+                            <td id="salt-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Oil</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="oil">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="yeast">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
-                                        </div>
+                                </div>
+                            </td>
+                            <td id="oil-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Sugar</td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" placeholder="0" step="any" id="sugar">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
                                     </div>
-                                </td>
-                                <td id="yeast-gram"></td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Salt</td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="salt">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td id="salt-gram"></td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Oil</td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="oil">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td id="oil-gram"></td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Sugar</td>
-                                <td>
-                                    <div class="input-group">
-                                        <input type="number" class="form-control" placeholder="0" step="any" id="sugar">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">%</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td id="sugar-gram"></td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Total (g)</td>
-                                <td>&nbsp;</td>
-                                <td colspan=6>
-                                    <div id="total-gram"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Per ball (g)</td>
-                                <td>&nbsp;</td>
-                                <td colspan=6>
-                                    <div id="perball-gram"></div>
-                                </td>
-                            </tr>
-                        </table>
+                                </div>
+                            </td>
+                            <td id="sugar-gram"></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Total (g)</td>
+                            <td>&nbsp;</td>
+                            <td colspan=6>
+                                <div id="total-gram"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Per ball (g)</td>
+                            <td>&nbsp;</td>
+                            <td colspan=6>
+                                <div id="perball-gram"></div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
