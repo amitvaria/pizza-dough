@@ -85,7 +85,7 @@
                             <td>Flour</td>
                             <td colspan=4>
                                 <button class="btn btn-primary btn-sm" id="add-flour">Customize flour</button>
-                                <button id="remove-flour" class="remove-flour btn btn-sm btn-secondary">Remove flour</button>
+                                <button id="remove-flour" class="remove-flour btn btn-sm btn-secondary" style="display:none;">Remove flour</button>
                                 <div id="multi-flour" style="display:none;">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
@@ -423,6 +423,7 @@
                 doughRequest2.addFlour(new Flour("", 0));
                 console.log(doughRequest2.getFlours());
                 flourRow++;
+                $("button.remove-flour").show();
                 updateResults();
             };
 
@@ -431,6 +432,8 @@
                 doughRequest2.removeFlour();
                 console.log(doughRequest2.getFlours());
                 flourRow--;
+                if(flourRow == 0)
+                    $("button.remove-flour").hide();
                 updateResults();
             });
 
