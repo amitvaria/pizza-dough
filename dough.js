@@ -1,6 +1,6 @@
 'use strict';
 class DoughRequest {
-	constructor(tf, quantity, shape, diameter, length, width, flours, water, yeastType, yeast, salt, oil, sugar)  {
+	constructor(tf, quantity, shape, diameter, length, width, flours, water, yeastType, yeast, salt, oil, sugar, image)  {
 		this.shapeCheck = ["Round", "Rectangular"];
 
 		this.setTf(tf);
@@ -17,6 +17,7 @@ class DoughRequest {
 		this.setOil(oil);
 		this.setSugar(sugar);
 		this.doughResult = new DoughResult(this);
+		this.image = image;
 		return this;
 	}
 
@@ -52,6 +53,8 @@ class DoughRequest {
 	        this.addFlour(new Flour(search_params.get('f1'), search_params.get('famt1')));
         if(search_params.get('f2') &&  search_params.get('famt2'))
 	        this.addFlour(new Flour(search_params.get('f2'), search_params.get('famt2')));
+
+        this.setImage(search_params.get('image'));
 
 		return this;
 	}
@@ -103,6 +106,10 @@ class DoughRequest {
 	        if(this.getFlours()[f].getAmount() != null && this.getFlours()[f].getAmount() != 0)
 	        	params.push("famt" + f + "=" + encodeURIComponent(this.getFlours()[f].getAmount()));
         }
+
+        if(this.getImage() != null && this.getImage() != "")
+	        params.push("image=" + encodeURIComponent(this.getImage()));
+
 
         return _url + "?" + params.join("&");
 	}
@@ -290,6 +297,14 @@ class DoughRequest {
 			this.flours.pop();
 		return this;
 	}
+	setImage(image) {
+		this.image = image;
+		return this;
+	}
+
+	getImage(image) {
+		return this.image;
+	}
 }
 
 class DoughResult{
@@ -439,13 +454,13 @@ class DoughResult{
 		if(this.doughRequest.getFlours().length == 0){
 			flour_rows += "<tr>";
 			flour_rows += "<td>Flour</td>";
-			flour_rows += "<td>" + this.getFlourGram().toFixed(2) + "</td>";
+			flour_rows += "<td>" + this.getFlourGram().toFixed(2) + "g</td>";
 			flour_rows += "</tr>";
 		} else {
 			for(var f = 0; f < this.doughRequest.getFlours().length; f++){
 				flour_rows += "<tr>";
 				flour_rows += "<td>" + this.doughRequest.getFlours()[f].getName() + "</td>";
-				flour_rows += "<td>" + (this.getFlourGram() * this.doughRequest.getFlours()[f].getAmount() / 100).toFixed(2) + "</td>";
+				flour_rows += "<td>" + (this.getFlourGram() * this.doughRequest.getFlours()[f].getAmount() / 100).toFixed(2) + "g</td>";
 				flour_rows += "</tr>";
 			}
 		}
