@@ -46,9 +46,12 @@ class DoughRequest {
         this.setSugar(search_params.get('sugar'));
         this.setOil(search_params.get('oil'));
 
-        this.addFlour(new Flour(search_params.get('f0'), search_params.get('famt0')));
-        this.addFlour(new Flour(search_params.get('f1'), search_params.get('famt1')));
-        this.addFlour(new Flour(search_params.get('f2'), search_params.get('famt2')));
+        if(search_params.get('f0') &&  search_params.get('famt0'))
+	        this.addFlour(new Flour(search_params.get('f0'), search_params.get('famt0')));
+        if(search_params.get('f1') &&  search_params.get('famt1'))
+	        this.addFlour(new Flour(search_params.get('f1'), search_params.get('famt1')));
+        if(search_params.get('f2') &&  search_params.get('famt2'))
+	        this.addFlour(new Flour(search_params.get('f2'), search_params.get('famt2')));
 
 		return this;
 	}
@@ -176,13 +179,14 @@ class DoughRequest {
 		
 		if(!Array.isArray(flours))
 			throw "Must be an array of Flour"
-		
+
+		this.flours = [];
 		for(var f = 0; f < flours.length; f++) {
 			if(!Flour.prototype.isPrototypeOf(flours[f])){
 				throw "Must be an array of Flour";
 			}
 
-			if(!flours[f].isEmpty())
+			//if(!flours[f].isEmpty())
 				this.flours.push(flours[f]);
 		}
 		
@@ -273,11 +277,17 @@ class DoughRequest {
 
 	addFlour(flour) {
 		if(Flour.prototype.isPrototypeOf(flour)){
-			if(!flour.isEmpty())
+		//	if(!flour.isEmpty())
 				this.flours.push(flour);
 		} else {
 			throw "Not Flour";
 		}
+		return this;
+	}
+
+	removeFlour() {
+		if(this.flours.length > 0)
+			this.flours.pop();
 		return this;
 	}
 }

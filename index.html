@@ -51,7 +51,7 @@
                                     <option>Rectangular</option>
                                 </select>
                             </div>
-                            <div class="form-row" id="rectangular-row">
+                            <div class="form-row" id="rectangular-form">
                                 <div class="form-group col-md-6">
                                     <label for="width">Width</label>
                                     <input type="number" step="any" class="form-control" placeholder="0" id="width">
@@ -61,7 +61,7 @@
                                     <input type="number" step="any" class="form-control" placeholder="0" id="length">
                                 </div>
                             </div>
-                            <div class="form-group" id="diameter-row">
+                            <div class="form-group" id="round-form">
                                 <label for="diameter">Diameter</label>
                                 <input type="number" class="form-control" placeholder="0" step="any" id="diameter">
                             </div>
@@ -80,10 +80,11 @@
                         <th>tsp</th>
                         <th>tbsp</th>
                     </tr>
-                    <tr>
+                    <tr id="flour-row-0">
                         <td>Flour</td>
                         <td>
                             <button class="btn btn-primary btn-sm" id="add-flour">Customize flour</button>
+                            <button id="remove-flour" class="remove-flour btn btn-sm btn-secondary">Remove flour</button>
                             <div id="multi-flour" style="display:none;">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -279,138 +280,253 @@
 
     <script src="dough.js"></script>
     <script>
+        $(function() {
+            var flourRow = 0;
+            var doughRequest2 = new DoughRequest().parseURL(window.location.href);
 
-        let tf = document.getElementById("thicknessFactor");
-        let quantity = document.getElementById("quantity");
-        let shape = document.getElementById("shape");
-        let diameter = document.getElementById("diameter");
-        let length = document.getElementById("length");
-        let width = document.getElementById("width");
-        let flour1 = document.getElementById("flour1");
-        let flour1_amt = document.getElementById("flour1_amt");
-        let flour2 = document.getElementById("flour2");
-        let flour2_amt = document.getElementById("flour2_amt");
-        let flour3 = document.getElementById("flour3");
-        let flour3_amt = document.getElementById("flour3_amt");
-        let flour_error = document.getElementById("flour-error");
-        let water = document.getElementById("water");
-        let yeast_type = document.getElementById("yeast_type");
-        let yeast = document.getElementById("yeast");
-        let salt = document.getElementById("salt");
-        let oil = document.getElementById("oil");
-        let sugar = document.getElementById("sugar");
+            $("#thicknessFactor").val(doughRequest2.getTf());
+            $("#diameter").val(doughRequest2.getDiameter());
+            $("#shape").val(doughRequest2.getShape());
+            $("#length").val(doughRequest2.getLength());
+            $("#width").val(doughRequest2.getWidth());
+            $("#quantity").val(doughRequest2.getQuantity());
+            $("#water").val(doughRequest2.getWater());
+            $("#yeast_type").val(doughRequest2.getYeastType());
+            $("#yeast").val(doughRequest2.getYeast());
+            $("#salt").val(doughRequest2.getSalt());
+            $("#sugar").val(doughRequest2.getSugar());
+            $("#oil").val(doughRequest2.getOil());
 
-        let rectangular_row = document.getElementById("rectangular-row");
-        let diameter_row = document.getElementById("diameter-row");
-
-        //Flour UI
-        document.getElementById("add-flour").addEventListener("click", function(e) {
-            document.getElementById("add-flour").style.display = "none"
-            document.getElementById("multi-flour").style.display = null;
-        }, false);
-
-        document.getElementById("clear-flour").addEventListener("click", function(e) {
-            document.getElementById("multi-flour").style.display = "none"
-            document.getElementById("add-flour").style.display = null;
-            flour1.value = flour1_amt.value = flour2.value = flour2_amt.value = flour3.value = flour3_amt.value = "";
-            calc();
-        }, false);
-
-        document.addEventListener('input', calc);
-        function calc() {
-            //Calculate dough measurements
-            doughResult = new DoughRequest().setTf(thicknessFactor.value)
-                                      .setQuantity(quantity.value)
-                                      .setShape(shape.value)
-                                      .setDiameter(diameter.value)
-                                      .setLength(length.value)
-                                      .setWidth(width.value)
-                                      .setWater(water.value)
-                                      .setYeastType(yeast_type.value)
-                                      .setYeast(yeast.value)
-                                      .setSalt(salt.value)
-                                      .setOil(oil.value)
-                                      .setSugar(sugar.value)
-                                      .setFlours([
-                                        new Flour(flour1.value, flour1_amt.value),
-                                        new Flour(flour2.value, flour2_amt.value),
-                                        new Flour(flour3.value, flour3_amt.value)
-                                      ])
-                                      .calculate();
-
-            //Make the shareable URL
-            url = doughResult.doughRequest.getShareableURL(top.location.origin.toString(), top.location.pathname.toString());
-            document.getElementById("url").innerHTML = "<a href='" + url + "'>" + url + "</a>";
-
-            //Make a shareable table
-            document.getElementById("table").innerHTML = doughResult.getHTMLTable();
-
-            //Update the main table
-            document.getElementById("total-gram").innerHTML = doughResult.getTotalGram().toFixed(2);
-            document.getElementById("perball-gram").innerHTML = doughResult.getPerballGram().toFixed(2);
-            document.getElementById("flour-gram").innerHTML = doughResult.getFlourGram().toFixed(2);
-            document.getElementById("water-gram").innerHTML = doughResult.getWaterGram().toFixed(2);
-            document.getElementById("yeast-gram").innerHTML = doughResult.getYeastGram().toFixed(2);
-            document.getElementById("salt-gram").innerHTML = doughResult.getSaltGram().toFixed(2);
-            document.getElementById("oil-gram").innerHTML = doughResult.getOilGram().toFixed(2);
-            document.getElementById("sugar-gram").innerHTML = doughResult.getSugarGram().toFixed(2);
-
-
-            //Update UI
-            switch(shape.value.toString()) {
-              case "Round":
-                rectangular_row.style.display = "none";
-                diameter_row.style.display = null;
-                break;
-              case "Rectangular":
-                rectangular_row.style.display = null;
-                diameter_row.style.display = "none";
-                break;
+            flours = doughRequest2.getFlours();
+            
+            if(flours.length > 0) {
+                for(flour=0; flour < flours.length; flour++) {
+                    $(`
+                        <tr id="flour-row-${flourRow + 1}" class="flourRow">
+                            <td>&nbsp;</td>
+                            <td>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="flour${flourRow + 1}">Flour #${flourRow + 1}</label>
+                                        <input type="text" class="form-control" placeholder="Flour" id="flour${flourRow + 1}" name="flour[]" value="${flours[flour].getName()}">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="flour${flourRow + 1}">Amount</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" placeholder="0" step="any" id="flour${flourRow + 1}_amt" name="flour_amount[]" value="${flours[flour].getAmount()}">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td id="flour${flourRow + 1}-gram">&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    `).insertAfter("#flour-row-" + flourRow);
+                    flourRow++;
+                }
             }
 
-            if(doughResult.doughRequest.isValidFlourAmount()) {
-                flour_error.style.display = "none";                
-            } else {
-                flour_error.style.display = null;
-            }
-        }
+            switch($("#shape").val()) {
+                case "Round":
+                    $("#round-form").show();
+                    $("#rectangular-form").hide();
+                    break;
+                case "Rectangular":
+                    $("#round-form").hide();
+                    $("#rectangular-form").show();
+                    break;
+                default:
+                    break;
+            };
+            updateResults();
 
-        document.addEventListener("DOMContentLoaded", function(e) {
-            //Parse the URL
-            doughRequest = new DoughRequest().parseURL(window.location.href);
+            $( "#thicknessFactor" ).change(function () {
+                doughRequest2.setTf($("#thicknessFactor").val());
+                updateResults();
+            })
 
-            tf.value = doughRequest.getTf();
-            diameter.value = doughRequest.getDiameter();
-            shape.value = doughRequest.getShape();
-            length.value = doughRequest.getLength();
-            width.value = doughRequest.getWidth();
-            quantity.value = doughRequest.getQuantity();
-            water.value = doughRequest.getWater();
-            yeast_type.value = doughRequest.getYeastType();
-            yeast.value = doughRequest.getYeast();
-            salt.value = doughRequest.getSalt();
-            sugar.value = doughRequest.getSugar();
-            oil.value = doughRequest.getOil();
+            $("#diameter").change(function () {
+                doughRequest2.setDiameter($("#diameter").val());
+                updateResults();
+            });
 
-            if(doughRequest.getFlours().length >= 1){
-                flour1.value = doughRequest.getFlours()[0].getName();
-                flour1_amt.value = doughRequest.getFlours()[0].getAmount();
-            }
-            if(doughRequest.getFlours().length >= 2){
-                flour2.value = doughRequest.getFlours()[1].getName();
-                flour2_amt.value = doughRequest.getFlours()[1].getAmount();
-            }
-            if(doughRequest.getFlours().length >= 3){
-                flour3.value = doughRequest.getFlours()[2].getName();
-                flour3_amt.value = doughRequest.getFlours()[2].getAmount();
-            }
+            $("#shape").change(function () {
+                doughRequest2.setShape($("#shape").val());
+                updateResults();
+            });
 
-            if(doughRequest.getFlours().length > 0) {
-                document.getElementById("add-flour").style.display = "none"
-                document.getElementById("multi-flour").style.display = null;
-            }
+            $("#length").change(function () {
+                doughRequest2.setLength($("#length").val());
+                updateResults();
+            });
 
-            calc();
+            $("#width").change(function () {
+                doughRequest2.setWidth($("#width").val());
+                updateResults();
+            });
+
+            $("#quantity").change(function () {
+                doughRequest2.setQuantity($("#quantity").val());
+                updateResults();
+            });
+
+            $("#water").change(function () {
+                doughRequest2.setWater($("#water").val());
+                updateResults();
+            });
+
+            $("#yeast_type").change(function () {
+                doughRequest2.setYeastType($("#yeast_type").val());
+                updateResults();
+            });
+
+            $("#yeast").change(function () {
+                doughRequest2.setYeast($("#yeast").val());
+                updateResults();
+            });
+
+            $("#salt").change(function () {
+                doughRequest2.setSalt($("#salt").val());
+                updateResults();
+            });
+
+            $("#sugar").change(function () {
+                doughRequest2.setSugar($("#sugar").val());
+                updateResults();
+            });
+
+            $("#oil").change(function () {
+                doughRequest2.setOil($("#oil").val());
+                updateResults();
+            });
+
+            $("#add-flour").on("click", {name : "", amount: 0}, addFlour1);
+
+            function addFlour1(data) {
+                $(`
+                    <tr id="flour-row-${flourRow + 1}" class="flourRow">
+                        <td>&nbsp;</td>
+                        <td>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="flour${flourRow + 1}">Flour #${flourRow + 1}</label>
+                                    <input type="text" class="form-control" placeholder="Flour" id="flour${flourRow + 1}" name="flour[]" value="${data.data.name}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="flour${flourRow + 1}">Amount</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" placeholder="0" step="any" id="flour${flourRow + 1}_amt" name="flour_amount[]" value="${data.data.amount}">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="flour${flourRow + 1}-gram">&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                `).insertAfter("#flour-row-" + flourRow);
+                doughRequest2.addFlour(new Flour("", 0));
+                console.log(doughRequest2.getFlours());
+                flourRow++;
+                updateResults();
+            };
+
+            $(document).on("click", "button.remove-flour", function(){
+                $("#flour-row-"+flourRow).remove();
+                doughRequest2.removeFlour();
+                console.log(doughRequest2.getFlours());
+                flourRow--;
+                updateResults();
+            });
+
+            $("#shape").change(function() {
+                switch($(this).val()) {
+                    case "Round":
+                        $("#round-form").show();
+                        $("#rectangular-form").hide();
+                        break;
+                    case "Rectangular":
+                        $("#round-form").hide();
+                        $("#rectangular-form").show();
+                        break;
+                    default:
+                        break;
+                };
+            });
+
+            $(document).on("change", 'input[name="flour[]"]', function() {
+                var flours = [];                
+                $('.flourRow').each( function() {
+                    flours.push(
+                        new Flour($(this).find('input[name="flour[]"]').first().val(), $(this).find('input[name="flour_amount[]"]').first().val())
+                    );
+                });
+                doughRequest2.setFlours(flours);
+                updateResults();
+            });
+
+            $(document).on("change", 'input[name="flour_amount[]"]', function() {
+                var flours = [];
+                $('.flourRow').each( function() {
+                    
+                    flours.push(
+                        new Flour(
+                            $(this).find('input[name="flour[]"]').first().val(),
+                            $(this).find('input[name="flour_amount[]"]').first().val()
+                        )
+                    );
+                });
+                console.log(doughRequest2);
+                doughRequest2.setFlours(flours);
+                console.log(doughRequest2);
+
+                updateResults();
+            });
+
+            function updateResults() {
+                doughRequest2.calculate();
+                
+                if(flourRow == 0) {
+                    $("#flour-gram").html(doughRequest2.doughResult.getFlourGram().toFixed(2));
+                }
+                else {
+                    $("#flour-gram").html("");
+                    flours = doughRequest2.getFlours();
+
+                    for(f = 1; f < flourRow + 1; f++) {
+                        if(flours[f-1] !== void 0) {
+                            $("#flour"+f+"-gram").html(
+                                
+                               (doughRequest2.doughResult.getFlourGram() * doughRequest2.getFlours()[f-1].getAmount() / 100).toFixed(2)
+                               
+                            );
+                            
+                        } 
+                        else {
+                        }
+                    }
+                }
+                
+
+
+                $("#water-gram").html(doughRequest2.doughResult.getWaterGram().toFixed(2));
+                $("#yeast-gram").html(doughRequest2.doughResult.getYeastGram().toFixed(2));
+                $("#salt-gram").html(doughRequest2.doughResult.getSaltGram().toFixed(2));
+                $("#oil-gram").html(doughRequest2.doughResult.getOilGram().toFixed(2));
+                $("#sugar-gram").html(doughRequest2.doughResult.getSugarGram().toFixed(2));
+                $("#total-gram").html(doughRequest2.doughResult.getTotalGram().toFixed(2));
+                $("#perball-gram").html(doughRequest2.doughResult.getPerballGram().toFixed(2));
+
+                $("#url").html(doughRequest2.getShareableURL());
+                $("#table").html(doughRequest2.doughResult.getHTMLTable());
+            }
         });
     </script>
 </body>
