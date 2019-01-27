@@ -499,23 +499,19 @@
 
                 if (!file || !file.type.match(/image.*/)) return;
 
-                document.body.className = "uploading";
-
-                var fd = new FormData();
-                fd.append("image", file);
+                var formData = new FormData();
+                formData.append("image", file);
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "https://api.imgur.com/3/image.json");
                 xhr.onload = function() {
-                    updateResults();
-                    document.getElementById("upload-progress").style.display = "none";
-                    document.getElementById("image-preview").src = JSON.parse(xhr.responseText).data.link;
                     doughRequest2.setImage(JSON.parse(xhr.responseText).data.link);
+                    $("#upload-progress").hide();
+                    $("#image-preview").attr("src", doughRequest2.getImage());
                     updateResults();
-
                 }
                 
                 xhr.setRequestHeader('Authorization', 'Client-ID 8061f70841482dc'); 
-                xhr.send(fd);
+                xhr.send(formData);
             }
         });
     </script>
