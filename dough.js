@@ -36,7 +36,7 @@ class DoughRequest {
         	(search_params.get('shape') == null) ? "Round" : search_params.get('shape')
         );
         this.setLength(search_params.get('length'));
-        this.setWidth(search_params.get('diameter'));
+        this.setWidth(search_params.get('width'));
         this.setQuantity(search_params.get('quantity'));
         this.setWater(search_params.get('water'));
 	    this.setYeastType(
