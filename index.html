@@ -195,12 +195,18 @@
                         Image Upload
                     </div>
                     <div class="card-body">
-                        <form id="imgur">
-                            <input id="imgurUpload" type="file" class="imgur" accept="image/*" data-max-size="5000"/>
-                            <div class="progress" id="upload-progress" style="display:none;">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                            </div>
-                        </form>
+                        <div class="input-group" id="upload-group">
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input imgur" id="imgurUpload" type="file" accept="image/*" data-max-size="5000">
+                            <label class="custom-file-label" for="imgurUpload">Choose file</label>
+                          </div>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="upload-image">Upload</button>
+                          </div>
+                        </div>
+                        <div class="progress" id="upload-progress" style="display:none;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                        </div>
                         <p class="card-text" >
                             <img id="image-preview" class="img-fluid rounded mx-auto d-block" />
                         </p>
@@ -483,13 +489,13 @@
                 $("#table").html(doughRequest2.doughResult.getHTMLTable());
             }
 
-            $("#imgurUpload").change(function () {
-                upload($(this)[0].files[0]);
+            $("#upload-image").on("click", function () {
+                upload($("#imgurUpload")[0].files[0]);
             })
 
             function upload(file) {
-                document.getElementById("imgurUpload").style.display = "none";
-                document.getElementById("upload-progress").style.display = "";
+                $("#upload-group").hide();
+                $("#upload-progress").show();
 
                 if (!file || !file.type.match(/image.*/)) return;
 
