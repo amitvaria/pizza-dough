@@ -485,7 +485,8 @@
                 $("#total-gram").html(doughRequest2.doughResult.getTotalGram().toFixed(2));
                 $("#perball-gram").html(doughRequest2.doughResult.getPerballGram().toFixed(2));
 
-                $("#url").html(doughRequest2.getShareableURL(document.location.origin, document.location.pathname));
+                $("#url").html(
+                    "<a href='" + doughRequest2.getShareableURL(document.location.origin, document.location.pathname) + "'>Share</a>");
                 $("#table").html(doughRequest2.doughResult.getHTMLTable());
             }
 
