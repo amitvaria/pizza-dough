@@ -279,6 +279,12 @@
             $("#sugar").val(doughRequest2.getSugar());
             $("#oil").val(doughRequest2.getOil());
 
+            if(doughRequest2.getImage() != null) {
+                $("#upload-progress").hide();
+                $("#imgurUpload").hide();
+                $("#image-preview").attr("src", doughRequest2.getImage());
+            }
+
             flours = doughRequest2.getFlours();
             
             if(flours.length > 0) {
@@ -495,8 +501,6 @@
                         }
                     }
                 }
-                
-
 
                 $("#water-gram").html(doughRequest2.doughResult.getWaterGram().toFixed(2));
                 $("#yeast-gram").html(doughRequest2.doughResult.getYeastGram().toFixed(2));
